@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- The blurred picture of the last dock app's shelf, over the neutral backdrop of the root. The two
+         views take turns (AmbientShelf cross-fades them), like the shelf's two hero views. -->
+    <View
+        android:id="@+id/ambient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0" />
+
+    <View
+        android:id="@+id/ambientNext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0" />
+
+    <!-- The top shelf's full screen picture, with a darkening at the top and the bottom so the clock and
+         the dock read over it.
+         Both sit above the ambient background and below the grid, and are filled in code (TopShelfView). -->
+    <ImageView
+        android:id="@+id/shelfHero"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <!-- The next picture of the carousel: it fades in over the one above while that one fades out. -->
+    <ImageView
+        android:id="@+id/shelfHeroNext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <View
+        android:id="@+id/shelfScrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@drawable/shelf_scrim"
+        android:importantForAccessibility="no" />
+
+    <!-- Everything the settings screen covers. While that screen is open this group blocks focus,
+         so the D-pad can never reach the grid or the clock pill behind it. -->
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- The top shelf (cards or the app icon), filled and positioned above the dock in code. -->
+        <FrameLayout
+            android:id="@+id/topShelf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:alpha="0"
+            android:importantForAccessibility="no" />
+
+        <!-- The wrapper clips at its edge; the grid itself must not clip so scaled tiles can overflow their cells.
+             It covers the whole screen: tiles scroll up behind the clock pill, as on tvOS. -->
+        <FrameLayout
+            android:id="@+id/gridWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="38dp"
+                android:paddingEnd="38dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:descendantFocusability="afterDescendants" />
+        </FrameLayout>
+
+        <!-- The clock pill, top right. OK opens the settings screen. -->
+        <TextClock
+            android:id="@+id/clockPill"
+            style="@style/TopButton"
+            android:layout_height="44dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/clock_pill_bg"
+            android:textColor="@color/text_primary"
+            android:contentDescription="@string/settings"
+            android:format12Hour="h:mm a"
+            android:format24Hour="HH:mm"
+            android:fontFamily="@font/outfit_semibold" />
+    </FrameLayout>
+
+    <!-- The settings screen: Inputs, Wi-Fi and the rest, as rows. -->
+    <include
+        android:id="@+id/settingsScreen"
+        layout="@layout/screen_settings"
+        android:visibility="gone" />
+</FrameLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Home</string>
+    <string name="inputs">Inputs</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Settings</string>
+    <string name="choose_input">Inputs</string>
+    <string name="connected">Connected</string>
+    <string name="standby">Standby</string>
+    <string name="not_connected">No device</string>
+    <string name="live_tv">Live TV</string>
+    <string name="no_inputs">No inputs found</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="not_available">Not available on this TV</string>
+    <string name="cant_open">Can\'t open %1$s</string>
+    <string name="date_format">EEEE  d MMMM</string>
+    <string name="dream_name">Clock</string>
+    <string name="vpn">VPN</string>
+    <string name="vpn_off">VPN off</string>
+    <string name="home_settings">Default home</string>
+    <string name="home_settings_help">Choose a home screen in system settings, then press Home.</string>
+    <string name="input_key_service_description">Opens the input switcher when the remote\'s Input button is pressed.</string>
+    <string name="home_key_name">Home button</string>
+    <string name="home_key_description">Makes the remote\'s Home button open this launcher.</string>
+    <string name="order_not_saved">Couldn\'t save the choice</string>
+    <string name="shortcut_inputs_hint">Switch to an HDMI or AV input, or to Live TV.</string>
+    <string name="shortcut_wifi_hint">Your network. OK opens the VPN app if one is set, otherwise Wi-Fi settings. Hold OK for Wi-Fi settings.</string>
+    <string name="shortcut_settings_hint">Opens the TV\'s system settings.</string>
+    <string name="appearance">Appearance</string>
+    <string name="appearance_light">Light</string>
+    <string name="appearance_dark">Dark</string>
+    <string name="shortcut_appearance_hint">Light or dark.</string>
+    <string name="play_next">Play Next</string>
+    <string name="home_content">Top shelf content</string>
+    <string name="option_on">On</string>
+    <string name="option_off">Off</string>
+    <string name="shortcut_home_content_hint">Shows what the focused dock app publishes (cards, or its icon) above the dock. Off keeps the plain background and downloads nothing. OK switches it.</string>
+
+    <!-- The settings screen. -->
+    <string name="settings_title">Settings</string>
+    <string name="tv_settings">TV settings</string>
+    <string name="screensaver">Screensaver</string>
+    <string name="screensaver_preview">Preview now</string>
+    <string name="screensaver_preview_hint">Starts the screensaver now, to try it without waiting for it to come on.</string>
+    <string name="screensaver_pick">Choose LightLauncher as the screensaver</string>
+    <string name="screensaver_preview_unavailable">This TV can\'t show the preview</string>
+    <string name="settings_home">Launcher settings</string>
+    <string name="language">Language</string>
+    <string name="language_auto">Automatic</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_spanish" translatable="false">Español</string>
+    <string name="language_hint">Automatic follows the language of the TV.</string>
+    <string name="appearance_light_sub">Pale, soft backgrounds</string>
+    <string name="appearance_dark_sub">Dark backgrounds</string>
+    <string name="option_unavailable">Not available</string>
+    <string name="block_ads">Block ads (DNS)</string>
+    <string name="block_ads_hint">Private DNS through AdGuard blocks ads and trackers in other apps. It can\'t block YouTube\'s ads. OK switches it.</string>
+    <string name="block_ads_now">Private DNS now: %1$s.</string>
+    <string name="dns_needs_permission">Needs the secure settings permission, see the README</string>
+    <string name="dns_needs_android9">Needs Android 9 or later</string>
+    <string name="dns_not_changed">Couldn\'t change the DNS</string>
+
+    <!-- Updates and About. -->
+    <string name="update_check">Check for updates</string>
+    <string name="update_hint">Looks for a newer release on GitHub and installs it. Only the request for the release is sent.</string>
+    <string name="update_checking">Checking…</string>
+    <string name="update_up_to_date">Up to date</string>
+    <string name="update_available">%1$s available</string>
+    <string name="update_downloading">Downloading…</string>
+    <string name="update_confirm">Confirm on screen</string>
+    <string name="update_failed_check">Couldn\'t check</string>
+    <string name="update_failed_download">Couldn\'t download</string>
+    <string name="update_failed_install">Couldn\'t install</string>
+    <string name="update_unknown_sources">Allow installs from this launcher, then try again</string>
+    <string name="update_other_key">The update is signed with a different key, so it can\'t replace this app</string>
+    <string name="update_services_manual">Update installed. Turn the accessibility services back on, see the README</string>
+    <string name="about">About</string>
+    <string name="about_hint">Open source, MIT license. Source and releases: github.com/%1$s</string>
+    <string name="about_hint_plain">Open source, MIT license.</string>
+
+    <!-- The screensaver album. -->
+    <string name="cancel">Cancel</string>
+    <string name="album_title">Photo album</string>
+    <string name="album_hint">The Google Photos album the screensaver shows.</string>
+    <string name="album_status_title">Album</string>
+    <string name="album_status_none">No album</string>
+    <string name="album_link">Album link</string>
+    <string name="album_link_hint">Send the link of a shared Google Photos album from your phone: the TV shows a code to scan.</string>
+    <string name="album_link_set">Set</string>
+    <string name="album_link_unset">Not set</string>
+    <string name="album_sync_now">Sync now</string>
+    <string name="album_syncing">Syncing the album\u2026</string>
+    <string name="album_needs_link">Send the album link first</string>
+    <string name="album_remove">Remove album</string>
+    <string name="album_remove_title">Remove the album?</string>
+    <string name="album_remove_hint">The photos on this TV are deleted and the screensaver goes back to the clock.</string>
+    <string name="album_remove_confirm">Remove</string>
+    <string name="album_received">Album received. Downloading the photos\u2026</string>
+    <string name="qr_title">Send the link from your phone</string>
+    <string name="qr_steps">1. Scan the code with your phone\'s camera.\n2. Paste the link of the shared album and send it.\nThe phone and the TV must be on the same Wi-Fi.</string>
+    <string name="qr_waiting">Waiting for the link\u2026</string>
+    <string name="qr_unavailable">Connect the TV to Wi-Fi and try again</string>
+    <plurals name="photos">
+        <item quantity="one">%d photo</item>
+        <item quantity="other">%d photos</item>
+    </plurals>
+    <plurals name="album_status">
+        <item quantity="one">%1$d photo, synced %2$s</item>
+        <item quantity="other">%1$d photos, synced %2$s</item>
+    </plurals>
+    <plurals name="album_status_never">
+        <item quantity="one">%d photo, not synced yet</item>
+        <item quantity="other">%d photos, not synced yet</item>
+    </plurals>
+</resources>

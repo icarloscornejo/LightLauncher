@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The settings screen the clock pill opens, a full-width list of rounded rows over a soft gradient, in
+     the style of Apple TV's Settings. SettingsScreen fills the title, the pages (lists of rows from item_setting) and
+     the line of help under them. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/settings_bg"
+    android:clipChildren="false"
+    android:clickable="true"
+    android:focusable="false">
+
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="34dp"
+        android:textColor="@color/text_primary"
+        android:textSize="32sp"
+        android:fontFamily="@font/outfit_bold"
+        android:includeFontPadding="false" />
+
+    <!-- A long page (an accordion open under a row) scrolls; the focused row is kept in view. The padding, not a
+         margin, holds the space on the sides and under the title, so the lifted row and its shadow are not clipped. -->
+    <ScrollView
+        android:id="@+id/settingsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="92dp"
+        android:paddingStart="80dp"
+        android:paddingEnd="80dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="64dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <FrameLayout
+            android:id="@+id/settingsPages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/settingsHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginStart="96dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="26dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_tertiary"
+        android:textSize="14sp"
+        android:fontFamily="@font/outfit"
+        android:maxLines="3" />
+</FrameLayout>

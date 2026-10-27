@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الرئيسية</string>
+    <string name="inputs">المدخلات</string>
+    <string name="wifi">واي فاي</string>
+    <string name="settings">الإعدادات</string>
+    <string name="choose_input">المدخلات</string>
+    <string name="connected">متصل</string>
+    <string name="standby">في وضع الاستعداد</string>
+    <string name="not_connected">لا يوجد جهاز</string>
+    <string name="live_tv">البث المباشر</string>
+    <string name="no_inputs">لم يتم العثور على مدخلات</string>
+    <string name="ethernet">إيثرنت</string>
+    <string name="offline">غير متصل</string>
+    <string name="not_available">غير متاح على هذا التلفاز</string>
+    <string name="cant_open">تعذّر فتح %1$s</string>
+    <string name="date_format">EEEE  d MMMM</string>
+    <string name="dream_name">الساعة</string>
+    <string name="vpn">VPN</string>
+    <string name="vpn_off">VPN متوقف</string>
+    <string name="home_settings">الشاشة الرئيسية الافتراضية</string>
+    <string name="home_settings_help">اختر شاشة رئيسية من إعدادات النظام، ثم اضغط على زر الرئيسية.</string>
+    <string name="input_key_service_description">يفتح قائمة المدخلات عند الضغط على زر المدخلات في جهاز التحكم.</string>
+    <string name="home_key_name">زر الرئيسية</string>
+    <string name="home_key_description">يجعل زر الرئيسية في جهاز التحكم يفتح هذه الشاشة.</string>
+    <string name="order_not_saved">تعذّر حفظ الاختيار</string>
+</resources>

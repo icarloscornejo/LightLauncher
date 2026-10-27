@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One row of the settings screen: an optional icon, a title (with an optional line under it), an optional
+     grey value, and a check mark or a chevron. SettingsScreen shows and hides the optional parts. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="40dp"
+    android:layout_marginBottom="6dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="18dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:background="@drawable/setting_row_bg"
+    android:focusable="true"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="12dp"
+        android:tint="@drawable/pill_text"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical"
+        android:duplicateParentState="true">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@drawable/pill_text"
+            android:duplicateParentState="true"
+            android:textSize="17sp"
+            android:fontFamily="@font/outfit_medium"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@drawable/pill_text_dim"
+            android:duplicateParentState="true"
+            android:textSize="13sp"
+            android:fontFamily="@font/outfit"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- An icon that belongs to the value (the Wi-Fi symbol beside the network's name), not to the title. -->
+    <ImageView
+        android:id="@+id/valueIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:tint="@drawable/pill_text_dim"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:maxWidth="320dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@drawable/pill_text_dim"
+        android:duplicateParentState="true"
+        android:textSize="15sp"
+        android:fontFamily="@font/outfit_medium"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_check"
+        android:tint="@drawable/pill_text"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+
+    <ImageView
+        android:id="@+id/chevron"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_chevron"
+        android:tint="@drawable/pill_text_dim"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+</LinearLayout>

@@ -1,0 +1,4 @@
+# Pinned to the versions verified with these tools (pip freeze of tools/venv, 2026-10-19).
+adb-shell==0.4.4
+rsa==4.9.1
+cryptography==50.0.2

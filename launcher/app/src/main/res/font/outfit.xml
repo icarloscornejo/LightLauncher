@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Outfit at its normal weight (400). The font file is a variable one whose default is 100 (Thin), so a
+     text that uses the file directly comes out hairline thin. The weight is set here, once, and not on each text:
+     fontVariationSettings on a TextView costs about 20 ms every time it is set (measured on the BF1), which makes
+     opening a row of the settings take a quarter of a second. The other weights are outfit_medium and the like. -->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:font="@font/outfit_variable"
+        android:fontWeight="400"
+        android:fontVariationSettings="'wght' 400" />
+</font-family>

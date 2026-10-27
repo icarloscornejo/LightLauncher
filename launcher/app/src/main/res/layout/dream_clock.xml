@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Screensaver (ClockDream): clock and date that drift around a black screen over an ambient glow. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF000000">
+
+    <View
+        android:id="@+id/dreamAmbient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/dreamContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="true">
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="h:mm"
+                android:format24Hour="HH:mm"
+                android:textColor="#E6FFFFFF"
+                android:shadowColor="#B3000000"
+                android:shadowRadius="8"
+                android:shadowDy="2"
+                android:textSize="120sp"
+                android:fontFamily="@font/outfit_extralight"
+                android:letterSpacing="-0.04"
+                android:includeFontPadding="false" />
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:format12Hour="a"
+                android:format24Hour=""
+                android:textColor="#99FFFFFF"
+                android:shadowColor="#B3000000"
+                android:shadowRadius="8"
+                android:shadowDy="2"
+                android:textSize="22sp"
+                android:fontFamily="@font/outfit_medium"
+                android:letterSpacing="0.08"
+                android:textAllCaps="true" />
+        </LinearLayout>
+
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:format12Hour="@string/date_format"
+            android:format24Hour="@string/date_format"
+            android:textColor="#8CFFFFFF"
+            android:shadowColor="#B3000000"
+            android:shadowRadius="8"
+            android:shadowDy="2"
+            android:textSize="18sp"
+            android:fontFamily="@font/outfit"
+            android:letterSpacing="0.14"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+    <!-- Two slides for the photo crossfade, used when photos exist. A slide holds one photo,
+         or two side by side when they are not wide enough to fill a 16:9 screen on their own. -->
+    <LinearLayout
+        android:id="@+id/dreamSlideA"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:background="#FF000000"
+        android:alpha="0"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/dreamSlideALeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitCenter" />
+        <ImageView
+            android:id="@+id/dreamSlideARight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dreamSlideB"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:background="#FF000000"
+        android:alpha="0"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/dreamSlideBLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitCenter" />
+        <ImageView
+            android:id="@+id/dreamSlideBRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <!-- The home screen's greeting, time and date (same styles, scaled in code) on a plate with
+         faded edges (FeatheredPlate, set in code), flush with the bottom-left corner. Used over the photos
+         instead of the drifting clock. The padding is set in code so the text sits 16dp from the plate's
+         four edges as they appear on screen. -->
+    <LinearLayout
+        android:id="@+id/dreamHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="true">
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="h:mm"
+                android:format24Hour="HH:mm"
+                android:textColor="#FFFFFFFF"
+                android:textSize="52sp"
+                android:fontFamily="@font/outfit_medium"
+                android:letterSpacing="-0.04"
+                android:includeFontPadding="false"
+            android:shadowColor="#B3000000"
+            android:shadowRadius="8"
+            android:shadowDy="2" />
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="8dp"
+                android:format12Hour="a"
+                android:format24Hour=""
+                android:textColor="#B3FFFFFF"
+                android:textSize="15sp"
+                android:fontFamily="@font/outfit_medium"
+                android:letterSpacing="0.08"
+                android:textAllCaps="true"
+            android:shadowColor="#B3000000"
+            android:shadowRadius="8"
+            android:shadowDy="2" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="26dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="#33FFFFFF" />
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="9dp"
+                android:format12Hour="@string/date_format"
+                android:format24Hour="@string/date_format"
+                android:textColor="#A6FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="@font/outfit_medium"
+                android:letterSpacing="0.14"
+                android:textAllCaps="true"
+            android:shadowColor="#B3000000"
+            android:shadowRadius="8"
+            android:shadowDy="2" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

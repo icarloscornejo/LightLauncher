@@ -1,0 +1,30 @@
+# Build output and caches
+launcher/.gradle/
+launcher/.kotlin/
+launcher/build/
+launcher/app/build/
+# Kotlin and Gradle 9 also write these at the root, with absolute paths of the build machine
+.kotlin/
+build/
+*.apk
+
+# Machine-specific
+launcher/local.properties
+.idea/
+.DS_Store
+
+# Python tools
+tools/venv/
+__pycache__/
+
+# ADB keys written by tools/tv.py at runtime
+tools/adbkey/
+
+# Release signing keys and bundles: never committed
+*.jks
+*.keystore
+keystore.properties
+*.aab
+
+# Private notes about one specific TV (see docs/DEVELOPMENT.md for the public part)
+CLAUDE.md

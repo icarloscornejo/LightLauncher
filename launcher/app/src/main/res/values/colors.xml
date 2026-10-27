@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The launcher's colours, one name per role. This file is the DARK palette and the default;
+     values-notnight/colors.xml holds the LIGHT one. MainActivity forces the night bit of its configuration from the
+     Appearance setting, so the choice never depends on what the TV itself reports. The screensaver does not use
+     these: it keeps its own dark colours. Both files must define the same names. -->
+<resources>
+    <color name="background">#FF000000</color>
+
+    <!-- The home's neutral backdrop, top and bottom of its vertical gradient (what the top shelf's blurred picture also
+         darkens toward). -->
+    <color name="home_bg_top">#FF11141D</color>
+    <color name="home_bg_bottom">#FF06070B</color>
+
+    <!-- The ring of a focused clock pill. -->
+    <color name="focus_ring">#F2FFFFFF</color>
+
+    <!-- Text: primary, then progressively fainter. -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#D9FFFFFF</color>
+    <color name="text_tertiary">#99FFFFFF</color>
+    <color name="text_quaternary">#80FFFFFF</color>
+    <color name="text_caption">#8CFFFFFF</color>
+    <color name="text_dim">#73FFFFFF</color>
+    <color name="text_under_tile">#F2FFFFFF</color>
+    <color name="text_on_tile">#FFFFFFFF</color>
+
+    <!-- Text on a focused (white) row or pill: the same in both themes. -->
+    <color name="text_on_focus">#FF111111</color>
+    <color name="text_on_focus_dim">#99111111</color>
+    <color name="text_on_focus_mid">#E6111111</color>
+
+    <!-- Surfaces. -->
+    <color name="focus_fill">#F5FFFFFF</color>
+    <color name="row_fill">#24FFFFFF</color>
+    <color name="pill_fill_top">#2EFFFFFF</color>
+    <color name="pill_fill_bottom">#14FFFFFF</color>
+    <color name="pill_stroke">#38FFFFFF</color>
+    <color name="glass_top">#F22A2A2E</color>
+    <color name="glass_bottom">#F5161618</color>
+    <color name="glass_stroke">#33FFFFFF</color>
+    <color name="scrim">#F2101012</color>
+    <color name="icon_tile">#26FFFFFF</color>
+    <color name="tile_bg">#FF1C1C1E</color>
+    <color name="dock_fill">#1FFFFFFF</color>
+    <color name="dock_stroke">#33FFFFFF</color>
+    <color name="separator">#1FFFFFFF</color>
+
+    <!-- The settings screen: a soft vertical gradient, and rows that are glass until they take the focus. -->
+    <color name="settings_bg_top">#FF2A2A2E</color>
+    <color name="settings_bg_bottom">#FF141416</color>
+    <color name="settings_row">#24FFFFFF</color>
+</resources>

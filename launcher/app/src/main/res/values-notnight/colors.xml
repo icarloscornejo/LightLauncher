@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The LIGHT palette, used when MainActivity forces a not-night configuration. Same names as
+     values/colors.xml (the dark one). -->
+<resources>
+    <color name="background">#FFE9E6EE</color>
+
+    <color name="home_bg_top">#FFF3F3F8</color>
+    <color name="home_bg_bottom">#FFC6C8D4</color>
+
+    <!-- The ring of a focused clock pill. -->
+    <color name="focus_ring">#E61C1C1E</color>
+
+    <color name="text_primary">#FF1C1C1E</color>
+    <color name="text_secondary">#D91C1C1E</color>
+    <color name="text_tertiary">#991C1C1E</color>
+    <color name="text_quaternary">#801C1C1E</color>
+    <color name="text_caption">#8C1C1C1E</color>
+    <color name="text_dim">#7A1C1C1E</color>
+    <color name="text_under_tile">#F21C1C1E</color>
+    <color name="text_on_tile">#FF1C1C1E</color>
+
+    <color name="text_on_focus">#FF111111</color>
+    <color name="text_on_focus_dim">#99111111</color>
+    <color name="text_on_focus_mid">#E6111111</color>
+
+    <color name="focus_fill">#FFFFFFFF</color>
+    <color name="row_fill">#59FFFFFF</color>
+    <color name="pill_fill_top">#99FFFFFF</color>
+    <color name="pill_fill_bottom">#73FFFFFF</color>
+    <color name="pill_stroke">#80FFFFFF</color>
+    <color name="glass_top">#F2FFFFFF</color>
+    <color name="glass_bottom">#F2F2F0F6</color>
+    <color name="glass_stroke">#1F000000</color>
+    <color name="scrim">#F2ECE9F2</color>
+    <color name="icon_tile">#66FFFFFF</color>
+    <color name="tile_bg">#FFD9D7DF</color>
+    <color name="dock_fill">#66FFFFFF</color>
+    <color name="dock_stroke">#99FFFFFF</color>
+    <color name="separator">#1F000000</color>
+
+    <color name="settings_bg_top">#FFDCDCE0</color>
+    <color name="settings_bg_bottom">#FFC9C9CE</color>
+    <color name="settings_row">#9EFFFFFF</color>
+</resources>
