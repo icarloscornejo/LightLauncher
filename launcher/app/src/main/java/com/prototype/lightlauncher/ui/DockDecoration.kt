@@ -45,7 +45,8 @@ class DockDecoration(
             if (position !in 0 until dockSize) continue
             val card: View = child.findViewById(R.id.card) ?: continue
             val left: Float = (child.left + card.left).toFloat()
-            val top: Float = child.top + card.top + child.translationY
+            // Layout position only: a tile sliding into or out of the dock in move mode must not stretch the panel.
+            val top: Float = (child.top + card.top).toFloat()
             val right: Float = left + card.width
             val bottom: Float = top + card.height
             if (!any) {

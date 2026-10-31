@@ -7,6 +7,19 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-30
+
+### Fixed
+
+- **Empty dock slots can be filled.** On a TV that lacks some of the `dock_apps` (for example no SmartTube or Apple TV),
+  those slots stay empty and move mode could not put an app in them. Now Up from the grid tile under an empty slot fills
+  it, and Left and Right in the dock move an app into an empty slot instead of stepping over it.
+
+### Changed
+
+- Move mode: tiles slide to their new place, the picked up tile is a little smaller (1.26) and stays above the tiles it
+  passes, and the dock panel no longer stretches while a tile crosses it.
+
 ## [1.0.0] - 2026-10-26
 
 First release of LightLauncher, a tvOS style home screen for Android TV and Google TV, written in Kotlin with plain
@@ -75,5 +88,6 @@ Views.
   by hand, and logs carry a category, never an address or a server message.
 - Cleartext traffic and backups are disabled in the manifest. The update result receiver is not exported.
 
-[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/icarloscornejo/LightLauncher/releases/tag/v1.0.0

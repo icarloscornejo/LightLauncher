@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.prototype.lightlauncher.HomeSettingsActivity
 import com.prototype.lightlauncher.R
+import com.prototype.lightlauncher.core.DockOrder
 import com.prototype.lightlauncher.data.TileEntry
 import com.prototype.lightlauncher.data.TileKind
 
@@ -109,6 +110,7 @@ class AppAdapter(
         holder.card.scaleX = if (focused) FOCUS_SCALE else 1f
         holder.card.scaleY = if (focused) FOCUS_SCALE else 1f
         holder.card.translationZ = if (focused) FOCUS_LIFT_DP * holder.card.resources.displayMetrics.density else 0f
+        if (holder.card !== movingView) holder.itemView.translationZ = 0f // a recycled view of the moved tile
         if (entry.banner != null) {
             holder.banner.setImageDrawable(entry.banner)
             holder.banner.visibility = View.VISIBLE
@@ -168,6 +170,19 @@ class AppAdapter(
         notifyItemMoved(from, to)
     }
 
+    /**
+     * Fills the empty dock slot [vacancy] with the grid tile at [from]: the vacancy is dropped (the list is one shorter)
+     * and the tile takes its place, the ones in between move one over. The tile's view travels with it, so it keeps focus.
+     */
+    fun fill(vacancy: Int, from: Int) {
+        if (vacancy !in items.indices || from <= vacancy || from !in items.indices) return
+        DockOrder.fillSlot(items, vacancy, from)
+        notifyItemRemoved(vacancy)
+        notifyItemMoved(from - 1, vacancy)
+        // The tile left the grid for the dock: the dock shows no names.
+        notifyItemChanged(vacancy, ZONE_CHANGED)
+    }
+
     /** The keys of the tiles under the dock that the owner can arrange, in order: not the optional Default home tile. */
     fun gridKeys(): List<String> =
         items.drop(dockSize).filter { it.kind == TileKind.APP }.map { it.key }
@@ -181,12 +196,17 @@ class AppAdapter(
     fun startMoving(tile: View) {
         stopMoving()
         movingView = tile
+        // The card's own lift only orders it inside its item; the items are what the grid stacks.
+        (tile.parent as? View)?.translationZ = MOVING_ITEM_Z_DP * tile.resources.displayMetrics.density
         animateTile(tile, MOVING_SCALE, MOVING_LIFT_DP)
     }
 
     /** Puts the tile back to its focused size. Safe to call when nothing is being moved. */
     fun stopMoving() {
-        movingView?.let { tile -> animateTile(tile, FOCUS_SCALE, FOCUS_LIFT_DP) }
+        movingView?.let { tile ->
+            (tile.parent as? View)?.translationZ = 0f
+            animateTile(tile, FOCUS_SCALE, FOCUS_LIFT_DP)
+        }
         movingView = null
     }
 
@@ -332,8 +352,11 @@ class AppAdapter(
         private const val ZONE_CHANGED: String = "zone"
 
         /** Move mode: the picked up tile's size and lift, bigger than a focused one (FOCUS_SCALE, FOCUS_LIFT_DP). */
-        private const val MOVING_SCALE: Float = 1.35f
+        private const val MOVING_SCALE: Float = 1.26f
         private const val MOVING_LIFT_DP: Float = 22f
+
+        /** Raises the moved tile's whole item above its neighbours, so the tiles it trades places with slide behind it. */
+        private const val MOVING_ITEM_Z_DP: Float = 40f
 
         /** Design size of a tile (dp); tiles shrink from here when the columns don't fit, see tileWidthPx. */
         const val DESIGN_W_DP: Float = 180f

@@ -31,6 +31,32 @@ object DockOrder {
         )
     }
 
+    /**
+     * Puts the grid tile at [gridIndex] into the empty dock slot [dockIndex]: its package takes the slot (the package
+     * that was missing from the TV is dropped) and its key leaves the grid, so the tiles after it move one place up.
+     * Null when either index does not exist, or when the package coming up is already in the dock.
+     */
+    fun fillVacancy(dock: List<String>, grid: List<String>, dockIndex: Int, gridIndex: Int, packageOf: (String) -> String): Orders? {
+        if (dockIndex !in dock.indices || gridIndex !in grid.indices) return null
+        val coming: String = packageOf(grid[gridIndex])
+        if (coming in dock) return null
+        return Orders(
+            dock.toMutableList().also { it[dockIndex] = coming },
+            grid.toMutableList().also { it.removeAt(gridIndex) },
+        )
+    }
+
+    /**
+     * The tile list after [fillVacancy]: the vacancy at [vacancy] is removed and the tile at [from] (a grid place, after
+     * the dock) takes its slot. Everything in between moves one place over and the list is one shorter. The adapter
+     * sends the matching notifications: removed at [vacancy], moved from `from - 1` to [vacancy].
+     */
+    fun <T> fillSlot(items: MutableList<T>, vacancy: Int, from: Int) {
+        if (vacancy !in items.indices || from <= vacancy || from !in items.indices) return
+        items.removeAt(vacancy)
+        items.add(vacancy, items.removeAt(from - 1))
+    }
+
     /** [order] with the entries at [first] and [second] exchanged. An index outside the list changes nothing. */
     fun swap(order: List<String>, first: Int, second: Int): List<String> {
         if (first !in order.indices || second !in order.indices || first == second) return order

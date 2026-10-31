@@ -62,6 +62,56 @@ class DockOrderTest {
     }
 
     @Test
+    fun fillVacancyPutsTheGridPackageInTheSlotAndTakesItsKeyOutOfTheGrid() {
+        val dock = listOf("spotify", "smarttube", "appletv", "netflix")
+        val grid = listOf("files/.Main", "browser/.Main", "clock/.Main")
+        val result = DockOrder.fillVacancy(dock, grid, 1, 2, packageOf)!!
+        assertEquals(listOf("spotify", "clock", "appletv", "netflix"), result.dock)
+        assertEquals(listOf("files/.Main", "browser/.Main"), result.grid)
+    }
+
+    @Test
+    fun fillVacancyRefusesAPackageAlreadyInTheDockOrAnIndexThatDoesNotExist() {
+        val dock = listOf("spotify", "smarttube")
+        val grid = listOf("spotify/.Second", "files/.Main")
+        assertEquals(null, DockOrder.fillVacancy(dock, grid, 1, 0, packageOf))
+        assertEquals(null, DockOrder.fillVacancy(dock, grid, 5, 1, packageOf))
+        assertEquals(null, DockOrder.fillVacancy(dock, grid, 1, 7, packageOf))
+    }
+
+    @Test
+    fun fillSlotGivesWhatTheCatalogBuildsFromTheSavedOrders() {
+        // Xiaomi: smarttube and appletv are not installed, so the dock slots 1 and 2 are vacancies.
+        val favourites = listOf("spotify", "smarttube", "appletv", "netflix", "prime", "max")
+        val installed = listOf("spotify/.M", "netflix/.M", "prime/.M", "max/.M", "a/.M", "b/.M", "t/.M", "c/.M")
+        val before = DockLayout.arrange(favourites, 6, installed, packageOf)
+        val items: MutableList<String> = (before.dock.map { it ?: "vacant" } + listOf("a/.M", "b/.M", "t/.M", "c/.M")).toMutableList()
+        val orders = DockOrder.fillVacancy(favourites, listOf("a/.M", "b/.M", "t/.M", "c/.M"), 1, 2, packageOf)!!
+
+        DockOrder.fillSlot(items, 1, 8)
+
+        val after = DockLayout.arrange(orders.dock, 6, installed, packageOf)
+        val expected = after.dock.map { it ?: "vacant" } + orders.grid
+        assertEquals(expected, items)
+        assertEquals(listOf("spotify/.M", "t/.M", "vacant", "netflix/.M", "prime/.M", "max/.M", "a/.M", "b/.M", "c/.M"), items)
+    }
+
+    @Test
+    fun fillSlotWithTheTileRightUnderTheVacancy() {
+        val items = mutableListOf("s", "vacant", "n", "a", "t", "b")
+        DockOrder.fillSlot(items, 1, 4)
+        assertEquals(listOf("s", "t", "n", "a", "b"), items)
+    }
+
+    @Test
+    fun fillSlotOutsideTheListChangesNothing() {
+        val items = mutableListOf("s", "vacant", "a")
+        DockOrder.fillSlot(items, 1, 9)
+        DockOrder.fillSlot(items, 2, 1)
+        assertEquals(listOf("s", "vacant", "a"), items)
+    }
+
+    @Test
     fun swapExchangesTwoEntriesAndLeavesTheOthersAlone() {
         assertEquals(listOf("a", "d", "c", "b", "e"), DockOrder.swap(listOf("a", "b", "c", "d", "e"), 1, 3))
         assertEquals(listOf("a", "d", "c", "b", "e"), DockOrder.swap(listOf("a", "b", "c", "d", "e"), 3, 1))

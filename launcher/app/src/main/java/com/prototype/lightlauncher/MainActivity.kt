@@ -39,6 +39,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.prototype.lightlauncher.core.Appearance
@@ -295,7 +296,16 @@ class MainActivity : ComponentActivity(), AppAdapter.TileListener {
         grid = findViewById(R.id.grid)
         grid.layoutManager = GridLayoutManager(this, columns)
         grid.setHasFixedSize(true)
-        grid.itemAnimator = null
+        // Only moves are animated (move mode slides the tiles); reloads use notifyDataSetChanged, which no animator
+        // touches. No change animation: crossing dock and grid rebinds a tile with a payload, and a cross-fade would
+        // swap its view for another and take the focus away. Stable ids keep the moved tile's view, so its focus too.
+        grid.itemAnimator = if (reducedMotion) null else DefaultItemAnimator().apply {
+            supportsChangeAnimations = false
+            moveDuration = Motion.scaled(this@MainActivity, MOVE_MODE_SLIDE_MS)
+            addDuration = 0L
+            removeDuration = 0L
+            changeDuration = 0L
+        }
         grid.addItemDecoration(DockDecoration(columns, density, getColor(R.color.dock_fill), getColor(R.color.dock_stroke)))
         val enterAnimation: Int = if (reducedMotion) R.anim.tile_enter_reduced else R.anim.tile_enter
         val enterDelay: Float = if (reducedMotion) 0f else 0.06f
@@ -615,17 +625,20 @@ class MainActivity : ComponentActivity(), AppAdapter.TileListener {
         }
     }
 
-    /** Where a move ends up: the lists to save, the position the tile goes to, and whether it trades places or is inserted. */
-    private class MovePlan(val dock: List<String>, val grid: List<String>, val target: Int, val trade: Boolean)
+    /**
+     * Where a move ends up: the lists to save, the position the tile goes to, and whether it trades places, is inserted,
+     * or fills an empty dock slot (the slot is dropped and the grid is one tile shorter).
+     */
+    private class MovePlan(val dock: List<String>, val grid: List<String>, val target: Int, val trade: Boolean, val fill: Boolean = false)
 
     /** The package of a tile key, which is its component flattened ("package/.Class"). */
     private fun packageOfKey(key: String): String = key.substringBefore('/')
 
     /**
-     * One arrow press in move mode. In the dock, Left and Right trade places with the next dock app (stepping over
-     * empty slots) and Down trades with the grid app below, which takes the dock slot. In the grid, the tile is
+     * One arrow press in move mode. In the dock, Left and Right trade places with the next slot (an empty one
+     * included) and Down trades with the grid app below, which takes the dock slot. In the grid, the tile is
      * inserted one place (Left, Right) or one row (Up, Down) over and the others move along; Up from the first row
-     * trades with the dock app above. The lists are saved at every step, before the tile moves, so nothing is lost if
+     * trades with the dock app above, or fills the empty slot above. The lists are saved at every step, before the tile moves, so nothing is lost if
      * a reload or Home comes halfway through and a failed save moves nothing.
      */
     private fun moveTile(keyCode: Int) {
@@ -641,7 +654,7 @@ class MainActivity : ComponentActivity(), AppAdapter.TileListener {
             return
         }
         moveDock = plan.dock
-        if (plan.trade) adapter.swap(position, plan.target) else adapter.move(position, plan.target)
+        if (plan.fill) adapter.fill(plan.target, position) else if (plan.trade) adapter.swap(position, plan.target) else adapter.move(position, plan.target)
         FocusMemory.slot = plan.target
         if (position / columns != plan.target / columns) {
             // A new row, or the other side of the dock: the screen has to follow the tile, and the shelf the zone it is in.
@@ -664,10 +677,10 @@ class MainActivity : ComponentActivity(), AppAdapter.TileListener {
             KeyEvent.KEYCODE_DPAD_RIGHT -> 1
             else -> return null
         }
-        val dockEnd: Int = Math.min(columns, adapter.itemCount)
-        val target: Int = generateSequence(position + direction) { it + direction }
-            .takeWhile { it in 0 until dockEnd }
-            .firstOrNull { !adapter.isVacant(it) } ?: return null
+        // Local change: an empty slot is a place like any other, so a dock app can be moved into it (before 1.0.1 the
+        // move stepped over vacancies and a TV with fewer apps than slots could never fill them).
+        val target: Int = position + direction
+        if (target !in 0 until Math.min(columns, adapter.itemCount) || target !in moveDock.indices) return null
         return MovePlan(DockOrder.swap(moveDock, position, target), gridKeys, target, trade = true)
     }
 
@@ -683,8 +696,11 @@ class MainActivity : ComponentActivity(), AppAdapter.TileListener {
             else -> return null
         }
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && index < columns) {
-            // First row of the grid: the dock app above it, in the same column. An empty slot cannot be filled from here.
-            if (adapter.isVacant(index)) return null
+            // First row of the grid: the dock slot above it, in the same column. An empty slot is filled by the tile.
+            if (adapter.isVacant(index)) {
+                val filled: Orders = DockOrder.fillVacancy(moveDock, gridKeys, index, index, ::packageOfKey) ?: return null
+                return MovePlan(filled.dock, filled.grid, index, trade = false, fill = true)
+            }
             val key: String = adapter.keyAt(index) ?: return null
             val crossed: Orders = DockOrder.swapAcross(moveDock, gridKeys, index, index, key, ::packageOfKey) ?: return null
             return MovePlan(crossed.dock, crossed.grid, index, trade = true)
@@ -1194,5 +1210,8 @@ class MainActivity : ComponentActivity(), AppAdapter.TileListener {
          * back each time it resumes. Needs `pm grant com.prototype.lightlauncher android.permission.WRITE_SECURE_SETTINGS`.
          */
         private const val WANTED_ANIMATOR_SCALE: Float = 0.5f
+
+        /** How long a tile takes to slide to its new place in move mode: quick, since every arrow press moves one. */
+        private const val MOVE_MODE_SLIDE_MS: Long = 200L
     }
 }
