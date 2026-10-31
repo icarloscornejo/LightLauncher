@@ -251,7 +251,8 @@ class AppAdapter(
             return
         }
         val intent: Intent = Intent(Intent.ACTION_MAIN)
-            .addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)
+            // Android 13+ matches an explicit intent against the target's filter, and a phone app only has LAUNCHER.
+            .addCategory(if (entry.leanback) Intent.CATEGORY_LEANBACK_LAUNCHER else Intent.CATEGORY_LAUNCHER)
             .setComponent(entry.component)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
         try {

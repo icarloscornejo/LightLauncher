@@ -14,7 +14,7 @@ val keystoreProperties: Properties = Properties().apply {
 
 // Semantic version (MAJOR.MINOR.PATCH), the only place it is set; see CHANGELOG.md. The version code is derived
 // from it (1.2.3 -> 10203) so it always grows and installs update in place.
-val appVersion: String = "1.0.1"
+val appVersion: String = "1.0.2"
 val appVersionCode: Int = appVersion.split(".").map(String::toInt).let { (major, minor, patch) -> major * 10000 + minor * 100 + patch }
 
 android {

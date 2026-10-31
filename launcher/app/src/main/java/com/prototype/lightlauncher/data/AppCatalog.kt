@@ -3,6 +3,7 @@ package com.prototype.lightlauncher.data
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.content.res.Resources
@@ -26,6 +27,8 @@ class TileEntry(
     val icon: Drawable?,
     /** The app icon at xxxhdpi, loaded for the dock apps only; the top shelf shows it large. */
     val largeIcon: Drawable? = null,
+    /** False for a phone app that only has the plain launcher entry: it opens with that category, not the leanback one. */
+    val leanback: Boolean = true,
 ) {
     val pkg: String = component.packageName
 
@@ -57,7 +60,17 @@ class AppCatalog(
     fun load(): List<TileEntry> {
         val pm: PackageManager = context.packageManager
         val favourites: List<String> = favouritesProvider()
-        val found: List<ResolveInfo> = pm.queryIntentActivities(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER), 0)
+        val leanback: List<ResolveInfo> = pm.queryIntentActivities(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER), 0)
+        val leanbackPackages: Set<String> = leanback.mapNotNull { it.activityInfo?.packageName }.toSet()
+        // Local change: a phone app installed by hand has no leanback entry, only the plain launcher one. Those show
+        // too, but only user-installed ones: the system's own phone-style apps (Xiaomi's) would clutter the grid.
+        val sideloaded: List<ResolveInfo> = pm.queryIntentActivities(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER), 0)
+            .filter { ri ->
+                val activity = ri.activityInfo
+                activity != null && activity.packageName !in leanbackPackages && (activity.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+            }
+            .distinctBy { it.activityInfo.packageName }
+        val found: List<ResolveInfo> = leanback + sideloaded
         val fresh: MutableList<TileEntry> = ArrayList()
         for (ri in found) {
             val activity = ri.activityInfo ?: continue
@@ -68,7 +81,7 @@ class AppCatalog(
             val icon: Drawable? = ri.loadIcon(pm)
             val largeIcon: Drawable? = if (pkg in favourites) loadLargeIcon(pm, ri) else null
             // An app label with a bidi override or line separator must not redraw the tile name as something else (#117).
-            fresh.add(TileEntry(TileKind.APP, LabelText.clean(ri.loadLabel(pm).toString(), pkg), component, banner, icon, largeIcon))
+            fresh.add(TileEntry(TileKind.APP, LabelText.clean(ri.loadLabel(pm).toString(), pkg), component, banner, icon, largeIcon, leanback = pkg in leanbackPackages))
         }
         fresh.sortWith { a, b -> a.label.compareTo(b.label, ignoreCase = true) }
         val arranged = DockLayout.arrange(favourites, dockSlots, fresh) { it.pkg }

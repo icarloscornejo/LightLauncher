@@ -7,6 +7,14 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-31
+
+### Fixed
+
+- **Apps installed by hand now show.** A phone app installed from an APK has no TV entry (only the plain launcher one), so
+  the home never listed it. Apps the user installed that only have the plain launcher entry now appear in the grid and
+  open with that entry. System apps are still left out, and an app with a TV entry is not listed twice.
+
 ## [1.0.1] - 2026-10-30
 
 ### Fixed
@@ -88,6 +96,7 @@ Views.
   by hand, and logs carry a category, never an address or a server message.
 - Cleartext traffic and backups are disabled in the manifest. The update result receiver is not exported.
 
-[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/icarloscornejo/LightLauncher/releases/tag/v1.0.0
