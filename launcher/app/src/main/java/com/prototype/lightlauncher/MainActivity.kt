@@ -966,9 +966,23 @@ class MainActivity : ComponentActivity(), AppAdapter.TileListener {
     /** Opens the settings over the home screen, on [pageId] (and [rowId]) when a recreate puts them back where they were. */
     private fun openSettings(pageId: String = SettingsMenu.MAIN_PAGE, rowId: String? = null) {
         loadInputs() // the states of the ports are read again; the list already on screen is the last one known
+        checkForUpdateOnOpen()
         settingsMenu.refresh()
         settings.open(clockPill, pageId, rowId)
         settingsBack.isEnabled = true
+    }
+
+    /**
+     * Looks for an update each time the settings open, so the Update row already says "available" when the owner gets
+     * to it. Not while something is on offer or running (a check from there would drop the offer), and never when the
+     * build has no repository.
+     */
+    private fun checkForUpdateOnOpen() {
+        if (getString(R.string.update_repo).isEmpty()) return
+        when (container.updater.state.value) {
+            UpdateState.Idle, UpdateState.UpToDate, is UpdateState.Failed -> container.updater.check()
+            else -> Unit
+        }
     }
 
     /** [restoreFocus] is false when onPause or a Home press closes it: the resume brings the focus back. */

@@ -74,7 +74,8 @@ a URL or a server message. The link can also be sent from a phone: the settings 
 page on the local network (`LinkServer`) while that screen is open, behind a random token, for five minutes at most.
 Cleartext traffic and backups are off in the manifest.
 
-**Update check.** On demand only ("Check for updates" in the Launcher settings, never in the background).
+**Update check.** Only when the owner is in the Launcher settings: once each time they open (one request), or by
+pressing the row ("Check for updates"); never in the background. An update found turns the row into "Install update".
 `UpdateChecker` asks the GitHub API for the latest release of `update_repo` (`config.xml`; empty hides the row), and
 `UpdateRules` decides, failing closed: https and GitHub hosts only (every redirect checked by hand), exactly one
 asset named `LightLauncher-<version>.apk`, at most 20 MB, and the SHA-256 `digest` GitHub publishes for the asset

@@ -64,6 +64,7 @@
     <!-- Updates and About. -->
     <string name="update_check">Check for updates</string>
     <string name="update_hint">Looks for a newer release on GitHub and installs it. Only the request for the release is sent.</string>
+    <string name="update_install">Install update</string>
     <string name="update_checking">Checking…</string>
     <string name="update_up_to_date">Up to date</string>
     <string name="update_available">%1$s available</string>

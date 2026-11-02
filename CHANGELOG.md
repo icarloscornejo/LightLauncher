@@ -7,6 +7,17 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-11-01
+
+### Changed
+
+- **The update check runs when the settings open.** One request each time, never in the background. If a newer release
+  is found, the Update row becomes "Install update" with the version; OK downloads and installs it.
+
+### Removed
+
+- Phone apps without a TV entry are not listed again (1.0.2 showed them). The home is for Android TV apps only.
+
 ## [1.0.2] - 2026-10-31
 
 ### Fixed
@@ -96,7 +107,8 @@ Views.
   by hand, and logs carry a category, never an address or a server message.
 - Cleartext traffic and backups are disabled in the manifest. The update result receiver is not exported.
 
-[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/icarloscornejo/LightLauncher/releases/tag/v1.0.0

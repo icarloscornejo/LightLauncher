@@ -54,6 +54,7 @@
     <!-- Actualizaciones y Acerca de. -->
     <string name="update_check">Buscar actualización</string>
     <string name="update_hint">Busca una versión nueva en GitHub y la instala. Solo se envía la petición de la versión.</string>
+    <string name="update_install">Instalar actualización</string>
     <string name="update_checking">Comprobando…</string>
     <string name="update_up_to_date">Estás al día</string>
     <string name="update_available">%1$s disponible</string>

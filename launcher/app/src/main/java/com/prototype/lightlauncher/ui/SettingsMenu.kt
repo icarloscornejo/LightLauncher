@@ -342,7 +342,10 @@ class SettingsMenu(
 
     /** Writes where the update is into its row: called when it changes, from wherever it was started. */
     fun refreshUpdate() {
-        updateRow.value = when (val state: UpdateState = host.updateState()) {
+        // With an update on offer the row is the install button: OK on it downloads and installs.
+        val state: UpdateState = host.updateState()
+        updateRow.title = context.getString(if (state is UpdateState.Available) R.string.update_install else R.string.update_check)
+        updateRow.value = when (state) {
             UpdateState.Idle -> null
             UpdateState.Checking -> context.getString(R.string.update_checking)
             UpdateState.UpToDate -> context.getString(R.string.update_up_to_date)
