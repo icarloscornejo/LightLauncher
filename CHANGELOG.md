@@ -7,6 +7,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.4] - 2026-11-13
+
+### Removed
+
+- The "Block ads (DNS)" switch. It forced Private DNS to AdGuard in strict hostname mode, which has no fallback to
+  the router's DNS when the encrypted connection hangs (name lookups stalling for minutes after standby).
+
 ## [1.0.3] - 2026-11-01
 
 ### Changed
@@ -107,7 +114,8 @@ Views.
   by hand, and logs carry a category, never an address or a server message.
 - Cleartext traffic and backups are disabled in the manifest. The update result receiver is not exported.
 
-[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/icarloscornejo/LightLauncher/compare/v1.0.0...v1.0.1

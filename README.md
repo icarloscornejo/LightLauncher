@@ -129,7 +129,6 @@ Press the clock pill (Up from the dock, or Up again from the cards).
 | Language | Automatic, English or Spanish |
 | Appearance | Light or Dark |
 | Top shelf content | Show what the focused dock app publishes above the dock (off by default) |
-| Block ads (DNS) | Turns on Private DNS through AdGuard, which blocks ads and trackers in other apps (not YouTube's) |
 | Check for updates | Looks for a newer release on GitHub, see below |
 | About | The version and where the code lives |
 
@@ -166,8 +165,6 @@ on demand, each with fixed rules written down in [docs/DEVELOPMENT.md](docs/DEVE
 - the screensaver album (https, Google Photos hosts only),
 - the top shelf pictures (https, only for the dock apps, with size and time limits), and
 - the update check (https, GitHub hosts only), when you ask for it.
-
-Block ads (DNS) changes the system's Private DNS to AdGuard's, so the TV's DNS lookups then go to AdGuard.
 
 ## Project
 

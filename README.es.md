@@ -134,7 +134,6 @@ Abrí la píldora del reloj (Arriba desde el dock, o Arriba otra vez desde las t
 | Idioma | Automático, inglés o español |
 | Apariencia | Claro u Oscuro |
 | Contenido del estante superior | Muestra arriba del dock lo que publica la app enfocada (apagado por defecto) |
-| Bloquear anuncios (DNS) | Enciende el DNS privado de AdGuard, que bloquea anuncios y rastreadores en otras apps (no los de YouTube) |
 | Buscar actualización | Busca un release nuevo en GitHub, ver abajo |
 | Acerca de | La versión y dónde está el código |
 
@@ -172,9 +171,6 @@ a pedido, cada uno con reglas fijas escritas en [docs/DEVELOPMENT.md](docs/DEVEL
 - el álbum del protector de pantalla (https, solo hosts de Google Fotos),
 - las imágenes del estante superior (https, solo para las apps del dock, con límites de tamaño y tiempo), y
 - la búsqueda de actualizaciones (https, solo hosts de GitHub), cuando la pedís.
-
-Bloquear anuncios (DNS) cambia el DNS privado del sistema al de AdGuard, así que las consultas DNS del TV pasan
-entonces por AdGuard.
 
 ## Proyecto
 

@@ -53,13 +53,6 @@
     <string name="language_hint">Automatic follows the language of the TV.</string>
     <string name="appearance_light_sub">Pale, soft backgrounds</string>
     <string name="appearance_dark_sub">Dark backgrounds</string>
-    <string name="option_unavailable">Not available</string>
-    <string name="block_ads">Block ads (DNS)</string>
-    <string name="block_ads_hint">Private DNS through AdGuard blocks ads and trackers in other apps. It can\'t block YouTube\'s ads. OK switches it.</string>
-    <string name="block_ads_now">Private DNS now: %1$s.</string>
-    <string name="dns_needs_permission">Needs the secure settings permission, see the README</string>
-    <string name="dns_needs_android9">Needs Android 9 or later</string>
-    <string name="dns_not_changed">Couldn\'t change the DNS</string>
 
     <!-- Updates and About. -->
     <string name="update_check">Check for updates</string>

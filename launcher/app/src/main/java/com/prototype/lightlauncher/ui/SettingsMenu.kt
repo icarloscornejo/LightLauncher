@@ -10,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import com.prototype.lightlauncher.R
 import com.prototype.lightlauncher.core.Appearance
-import com.prototype.lightlauncher.core.DnsBlockState
 import com.prototype.lightlauncher.core.Language
 import com.prototype.lightlauncher.core.QrCode
 import com.prototype.lightlauncher.core.QrMatrix
 import com.prototype.lightlauncher.data.AlbumStatus
-import com.prototype.lightlauncher.data.PrivateDns
 import com.prototype.lightlauncher.data.UpdateFailure
 import com.prototype.lightlauncher.data.UpdateState
 
@@ -70,8 +68,6 @@ class SettingsMenu(
         fun checkForUpdate()
         fun installUpdate()
     }
-
-    private val dns = PrivateDns(context)
 
     private val screensaverRow = SettingsRow(SCREENSAVER_ROW, context.getString(R.string.screensaver)).apply {
         chevron = true
@@ -197,9 +193,6 @@ class SettingsMenu(
         hint = context.getString(R.string.shortcut_home_content_hint)
         onClick = { host.toggleHomeContent() }
     }
-    private val dnsRow = SettingsRow(DNS_ROW, context.getString(R.string.block_ads)).apply {
-        onClick = ::toggleDns
-    }
     private val updateRow = SettingsRow(UPDATE_ROW, context.getString(R.string.update_check)).apply {
         hint = context.getString(R.string.update_hint)
         onClick = {
@@ -256,7 +249,7 @@ class SettingsMenu(
             SettingsPage(
                 HOME_PAGE, context.getString(R.string.settings_home),
                 // No repository, no update row (a build that does not publish releases).
-                listOfNotNull(screensaverRow, languageRow, appearanceRow, contentRow, dnsRow, updateRow.takeIf { host.updateRepo().isNotEmpty() }, aboutRow),
+                listOfNotNull(screensaverRow, languageRow, appearanceRow, contentRow, updateRow.takeIf { host.updateRepo().isNotEmpty() }, aboutRow),
                 parent = MAIN_PAGE,
             ),
         )
@@ -334,10 +327,9 @@ class SettingsMenu(
         languageRow.value = context.getString(languageName(host.language()))
         appearanceRow.value = context.getString(appearanceName(host.appearance()))
         contentRow.value = context.getString(if (host.homeContentOn()) R.string.option_on else R.string.option_off)
-        refreshDns()
         aboutRow.value = host.versionName()
         refreshUpdate()
-        for (row in listOf(languageRow, appearanceRow, contentRow, dnsRow, aboutRow) + languageChoices.values + appearanceChoices.values) screen.refresh(row)
+        for (row in listOf(languageRow, appearanceRow, contentRow, aboutRow) + languageChoices.values + appearanceChoices.values) screen.refresh(row)
     }
 
     /** Writes where the update is into its row: called when it changes, from wherever it was started. */
@@ -361,35 +353,6 @@ class SettingsMenu(
             )
         }
         screen.refresh(updateRow)
-    }
-
-    private fun refreshDns() {
-        val state: DnsBlockState = dns.state()
-        val custom: String? = dns.customServer()
-        dnsRow.enabled = state != DnsBlockState.UNAVAILABLE && dns.canWrite()
-        dnsRow.value = context.getString(
-            when {
-                !dnsRow.enabled -> R.string.option_unavailable
-                state == DnsBlockState.ON -> R.string.option_on
-                else -> R.string.option_off
-            },
-        )
-        // Before the switch replaces the owner's own server, the row says which one it is.
-        dnsRow.hint = if (custom != null) {
-            context.getString(R.string.block_ads_now, custom) + " " + context.getString(R.string.block_ads_hint)
-        } else {
-            context.getString(R.string.block_ads_hint)
-        }
-    }
-
-    private fun toggleDns() {
-        val state: DnsBlockState = dns.state()
-        if (state == DnsBlockState.UNAVAILABLE || !dns.canWrite()) {
-            Toast.makeText(context, if (state == DnsBlockState.UNAVAILABLE) R.string.dns_needs_android9 else R.string.dns_needs_permission, Toast.LENGTH_LONG).show()
-            return
-        }
-        if (!dns.set(state != DnsBlockState.ON)) Toast.makeText(context, R.string.dns_not_changed, Toast.LENGTH_SHORT).show()
-        refresh()
     }
 
     private fun languageName(language: Language): Int = when (language) {
@@ -430,7 +393,6 @@ class SettingsMenu(
         const val LANGUAGE_ROW: String = "language_row"
         const val APPEARANCE_ROW: String = "appearance_row"
         const val CONTENT_ROW: String = "content"
-        const val DNS_ROW: String = "dns"
         const val UPDATE_ROW: String = "update"
         const val ABOUT_ROW: String = "about"
     }

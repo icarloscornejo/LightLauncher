@@ -43,13 +43,6 @@
     <string name="language_hint">Automático sigue el idioma del TV.</string>
     <string name="appearance_light_sub">Fondos claros y suaves</string>
     <string name="appearance_dark_sub">Fondos oscuros</string>
-    <string name="option_unavailable">No disponible</string>
-    <string name="block_ads">Bloquear anuncios (DNS)</string>
-    <string name="block_ads_hint">El DNS privado de AdGuard bloquea anuncios y rastreadores en otros apps. No puede bloquear los de YouTube. OK lo cambia.</string>
-    <string name="block_ads_now">DNS privado ahora: %1$s.</string>
-    <string name="dns_needs_permission">Falta el permiso de ajustes seguros, mirá el README</string>
-    <string name="dns_needs_android9">Requiere Android 9 o más reciente</string>
-    <string name="dns_not_changed">No se pudo cambiar el DNS</string>
 
     <!-- Actualizaciones y Acerca de. -->
     <string name="update_check">Buscar actualización</string>
